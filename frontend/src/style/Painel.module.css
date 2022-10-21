@@ -1,0 +1,64 @@
+.painel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* height: 850px; */
+    border: 2px solid antiquewhite;
+    justify-content: space-around;
+}
+
+.cabecalhoGraficos {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid antiquewhite; */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.blocoGraficos {
+    display: flex;
+    /* flex-direction:  column; */
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    width: 1400px;
+    margin-bottom: 40px;
+}
+
+/* .legendaMeses > div {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid antiquewhite;
+} */
+
+.grafico {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    border: 2px solid blueviolet;
+    background-color: aliceblue;
+    height: 300px;
+    width: 400px;
+    margin: 10px 10px 5px 10px;
+}
+
+.barra {
+    display: flex;
+    border: 2px solid black;
+    background-color: blue;
+    height: 30px;
+    width: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.legendaMeses {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* ----------------------------------------------------- */
