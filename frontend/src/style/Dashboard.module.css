@@ -14,14 +14,6 @@
     /* border: 3px solid red; */
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    /* border: 2px solid white; */
-    width: 100%;
-    /* background-color: #5d5bad; */
-}
-
 .BarraDadosSuperior {
     display: flex;
     flex-direction: row;

@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 // import { retrieveRelatoriosSatisfacao } from "../actions/relatorioSatisfacaoAction";
 import { retrieveAllProducts, generateAbsoluteValuesByMonth } from './../actions/produtoAction';
 
+import styleGlobal from '../style/Global.module.css';
 import style from '../style/Dashboard.module.css';
 import styleGraficos from '../style/GraficosDashboard.module.css';
 
@@ -128,7 +129,7 @@ const Dashboard = () => {
 
     return (
         <div className={style.dashBoard}>
-            <header className={style.header}>
+            <header className={styleGlobal.header}>
                 {/* <h1>Gráfico barra triplaaaaaaaa</h1> */}
                 <Bar />
             </header>

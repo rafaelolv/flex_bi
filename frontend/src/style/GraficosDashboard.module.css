@@ -186,3 +186,19 @@
     left: -11.8437px;
     height: 812px;
 } */
+
+.divLineChart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.lineChart {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* height: 90%; */
+    width: 70%;
+}

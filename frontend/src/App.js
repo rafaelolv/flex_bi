@@ -5,6 +5,7 @@ import './style/Global.module.css';
 
 import Painel from './pages/Painel';
 import Dashboard from './pages/Dashboard';
+import FormUploadDados from './pages/FormUploadDados';
 import PaginaGeraDadosJSON from './pages/PaginaGeraDadosJSON';
 
 
@@ -16,6 +17,7 @@ export default props => {
             <PaginaGeraDadosJSON /> */}
             <Routes>
                 <Route exact path={"/"} element={<Dashboard />} />
+                <Route exact path={"/form"} element={<FormUploadDados />} />
                 <Route exact path="/gerar" element={<PaginaGeraDadosJSON />} />
             </Routes>
         </BrowserRouter>
