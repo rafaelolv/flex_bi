@@ -129,10 +129,6 @@ const Dashboard = () => {
 
     return (
         <div className={style.dashBoard}>
-            <header className={styleGlobal.header}>
-                {/* <h1>Gráfico barra triplaaaaaaaa</h1> */}
-                <Bar />
-            </header>
             <div>
                 <section className={style.sectionProdutos}>
                     <BarraDadosSuperior countProdutos={dadosBarraSuperior.countProdutos} countCategorias={dadosBarraSuperior.countCategorias} />

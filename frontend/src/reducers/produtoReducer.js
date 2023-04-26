@@ -1,11 +1,13 @@
 import { RETRIEVE_PRODUTOS, ACCESS_DATA, ALL_PRODUCTS, ACCESS_ABSOLUTE_VALUES_PRODUCTS } from './../actions/actionTypes/produtoActionType';
 
-const initialState = [];
 
+const initialState = [];
 
 function produtoReducer(produtos = initialState, action) {
     console.log("2Chegou aqui! reducer de produtos!!!!!" + produtos + " - " + action.payload + "--" + action.type);
+    
     const { type, payload } = action;
+
     switch (type) {
         case RETRIEVE_PRODUTOS:
             console.log("Chegou aqui! reducer produto!!!!!");

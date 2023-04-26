@@ -1,3 +1,4 @@
+
 // const bodyParser = require('body-parser');  /* deprecated */
 const express = require('express');
 
@@ -9,32 +10,33 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 // parse requests of content-type - application/json
 app.use(express.json()); /* bodyParser.json() is deprecated */
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
 
-const db = require("../models");
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+require("../../routes/usuarioRoutes")(app); //passando app para a função que esta nesse caminho
+require("../../routes/graficoRoutes")(app);
+require("../../routes/dashboardRoutes")(app);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Atacarejo BI application." });
-});
+// app.use("/cadastrousuario", UsuarioRoutes);
 
-require("../routes/produtoRoutes")(app);
+// server.get('/hello', function (req, res) {
+//     res.send('Hello World!')
+// })
 
+// app.listen(port, () => {
+//     console.log(`BACKEND is running on ${port}.`);
+// })
+
+// app.post('/usuarios', function (req, res, next) {
+//     console.log(req.body)
+//     res.json(req.body)
+//   })
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is runnnnnnning on port ${PORT}.`);
 });

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,12 +8,24 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import relatorioSatisfacaoReducer from './../reducers/relatorioSatisfacaoReducer';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 export default function Bar () {
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const theme = createTheme({
         palette: {
@@ -35,15 +49,35 @@ export default function Bar () {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color='appBar'>
                 <Toolbar>
+                    <div>
                     <IconButton
                         size="large"
                         edge="start"
                         color='iconMenu'
                         aria-label="menu"
                         sx={{ mr: 2 }}
+                        onClick={handleClick}
                     >
                     <MenuIcon />
                     </IconButton>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem>
+                            <Link to={"/form"}>
+                                Form CSV
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </Menu>
+                    </div>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, color:'white' }}>
                         News
                     </Typography>

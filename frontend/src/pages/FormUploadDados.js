@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -57,6 +57,18 @@ const FormUploadDados = () => {
 
     let all = true;
 
+    // 
+    // useEffect(() => {
+    //     console.log("------> Useeffect FormUploadDados ---  ");
+
+    //     // if(allProducts.length === 0) {
+    //     //     return;
+    //     // }
+    //     getValorTotalByYear(fileData);
+
+        
+    // }, [filters]);
+
     
     // Método encarregado de ler o arquivo EXCEL e selecionar os labels para carregar no list form
     const handleChangeFileUpload = (event) => {
@@ -69,6 +81,7 @@ const FormUploadDados = () => {
 
                 setFileData(df);
                 // fileData = df;
+                console.log("fileData ---- > ");
                 console.log(fileData);
                 const groupbySet = [];
                 // talvez tenha que ser um map para poder  passar o name, ver se o map nao pega repetidos
@@ -108,7 +121,9 @@ const FormUploadDados = () => {
                 console.log("groupbySet");
                 console.log(groupbySet);
 
-                setFilters([...groupbySet[0]]);
+                setFilters([...groupbySet[0]].sort((a, b) => a - b));
+
+                getValorTotalByYear(df);
 
             }).catch(err => {
                 console.log(err);
@@ -191,24 +206,37 @@ const FormUploadDados = () => {
         let arrayDatas = fileData["Order Date"].values;
 
         // Esse valor vai mudar dependendo do que for selecionado no listItens 
-        let defaultTesteYear = "2015";
+        let defaultYearValue = 0;
         let sale = fileData["Sales"].values;
         const valuesPerMonth = new Array(12).fill(0);
 
-        let year = selectedYear != null ? selectedYear : defaultTesteYear; 
+        let year = selectedYear != null ? selectedYear : defaultYearValue; 
+
+        console.log("--------> " + year);
        
 
         let sf_rep = fileData["Order Date"].values;
 
-        [...sf_rep].forEach((item, index) => {
+        if(year !== 0) {
+            [...sf_rep].forEach((item, index) => {
 
-            const date = new Date(item);
+                const date = new Date(item);
+    
+                if(date.getFullYear() == year) {
+    
+                    valuesPerMonth[date.getMonth()] = valuesPerMonth[date.getMonth()] + sale[index];
+                }
+            })
+        } else {
+            [...sf_rep].forEach((item, index) => {
 
-            if(date.getFullYear() == year) {
-
+                const date = new Date(item);
+    
                 valuesPerMonth[date.getMonth()] = valuesPerMonth[date.getMonth()] + sale[index];
-            }
-        })
+            })
+        }
+
+        
 
         setLabelsChart(arrayLabelMonths);
         setValuesChart(valuesPerMonth);
@@ -272,11 +300,6 @@ const FormUploadDados = () => {
             
             <div>
                 <SelectOneOptionFilter itens={filters} handleItemFilter={handleItemFilter} />
-
-                {/* <button onClick={() => getDataSumByFilters(fileData)}> */}
-                <button onClick={() => getValorTotalByYear(fileData)}>
-                    Gerar
-                </button>
             </div>
 
             <div className={styleGraficos.divLineChart}>

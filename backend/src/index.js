@@ -1,5 +1,5 @@
-require('./config/server');
+require('./config/config/server');
 //const startDb = require('./config/db');
 //startDb();
 
-// require('./config/db');
+require('./config/config/db');

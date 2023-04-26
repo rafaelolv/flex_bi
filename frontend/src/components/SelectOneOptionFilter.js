@@ -32,7 +32,7 @@ const SelectOneOptionFilter = ({ itens, handleItemFilter }) => {
                     {Array.isArray(itens)
                         ? itens.map((itemValue) => {
                             return (
-                                <MenuItem value={itemValue}>{ itemValue }</MenuItem>
+                                <MenuItem key={itemValue} value={itemValue}>{ itemValue }</MenuItem>
                         )})
                         : null + console.log("ta dando errado!!!" + itens)}
                 </Select>
