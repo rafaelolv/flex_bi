@@ -10,7 +10,7 @@ const Dashboard = function(dashboard) {
 // 
 Dashboard.create = (newDashboard) => {
 
-    console.log("mode de dashboard");
+    console.log("model de dashboard");
     // const {nome, login, senha} = newUsuario;
 
     return new Promise (async (resolve, reject) => {
@@ -31,6 +31,57 @@ Dashboard.create = (newDashboard) => {
         }
     });
 }
+
+
+// 
+Dashboard.findDashboard = (idUser) => {
+
+    console.log("chegou aqui findDashboard ????");
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const queryFindDashboard = 'select * from dashboard where (id_usuario = ?)';
+            const result = await executeQuery(sql, queryFindDashboard, idUser);
+            const data = result[0];
+
+            console.log("data  " + data);
+            console.table(data);
+
+            resolve(data);
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
+
+Dashboard.carregaDadosDashboardByIdUser = (idUser) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            console.log("idUser " + idUser);
+
+            const queryCarregaDashboard = 'select * from usuario u inner join dashboard d on d.id_usuario = ?' +
+                ' inner join graficos g on g.id_dashboard = d.id_dashboard' +
+                ' inner join itens_grafico i on i.id_grafico = g.id_grafico';
+            
+            // const queryDashboard = 
+
+
+            const result = await executeQuery(sql, queryCarregaDashboard, idUser);
+            const data = result[0];
+
+            console.table(data);
+            console.log(data);
+
+
+            resolve(data);
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
 
 // 
 const executeQuery = async (con, query, params) => {

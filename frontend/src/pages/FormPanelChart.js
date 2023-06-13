@@ -1,55 +1,66 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import imgGraficoBarrasHorizontal from '../images/imgGraficobarrashori.PNG';
-import imgGraficoBarline from '../images/imgGraficoBarLine.PNG';
 import BarChart from "../graficos/BarChart";
+import ModalFormDashboard from '../components/ModalFormDashboard';
 import FormUploadDadosCSV from "../components/FormUploadDadosCSV";
 
-import { createNewDashboard } from "../actions/dashboardAction";
+import imgGraficoBarrasHorizontal from '../images/imgGraficobarrashori.PNG';
+import imgGraficoBarline from '../images/imgGraficoBarLine.PNG';
+
 import { createGrafico } from "../actions/graficoAction";
 
 import style from '../style/FormPanelChart.module.css';
 
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const styleMui = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 
+// Página de cadastro de gráficos que aparecerão na dashboard do usuário
 const FormPanelChart = () => {
 
-    const initialStateDadosDashboard = {
-        nome: "",
-        id_usuario: "",
-        dadosGrafico: {}
-    }
-
+    // Dados que viram previamente do banco, ver ainda se é isso mesmo, como vai fazer 
     const initialStateGrafico = {
-        id_dashboard: 2,
-        tipo: 'valor_total_tempo'
+        id_grafico: null,
+        id_dashboard: 1,
+        tipo: 'valor_geral_tempo'
     }
 
+    // Dados a serem inserios pelo usuário no form
     const initialStateDadosGrafico = {
+        id_itens_grafico: null,
+        id_grafico: null,
         label: "",
         valor: "",
         filtro: []
     };
 
-    //Para cadastro da dashboard o dos graficos que a irao compor inicialmente
-    const [dashboard, setDashboard] = useState(initialStateDadosDashboard);
 
     // 
     const [grafico, setGrafico] = useState(initialStateGrafico);
 
     //Para cadastro de graficos em uma dashboard existente
     const [dadosGrafico, setDadosGrafico] = useState(initialStateDadosGrafico);
+
+    // A idéia é que sirva para setar os dados extraidos do CSV, ainda ver isso
     const [dadosApiCSV, setDadosApiCSV] = useState("");
 
     const dispatch = useDispatch();
 
-
-    // 
-    const handleInputChangeDadosDashboard = event => {
-        const { name, value } = event.target;
-        setDashboard({ ...dashboard, [name]: value });
-    };
 
     // 
     const handleInputChangeGrafico = event => {
@@ -65,31 +76,9 @@ const FormPanelChart = () => {
     };
 
 
-    // 
-    const cadastrarNovaDashBoard = () => {
-        
-        dispatch(createNewDashboard(dashboard))
-            .then(data => {
-                setDashboard(data);
-
-                console.log("resposta then " + dashboard.nome);
-                console.log("resposta then " + dashboard.id_usuario);
-                console.log("resposta then " + data.id_usuario);
-                console.log("resposta then " + data.id_dashboard);
-
-                console.log(dashboard.dadosGrafico.label);
-                console.log("SUCCESS: Nova Dashboad cadastrada com sucesso!");
-            })
-            .catch(e => {
-                console.log("ERRO: " + e);
-            });
-
-        // navigate("/formChart");
-
-        console.log("--->Dash " + dadosGrafico.label);
-        console.log("---> " + dadosGrafico.valor);
-        console.log("---> " + dadosGrafico.filtros);
-
+    // Método usado para pegar e retornar uma dashboard
+    function getDashboard(dashboard) {
+        return dashboard;
     }
 
 
@@ -97,6 +86,7 @@ const FormPanelChart = () => {
     const cadastrarGrafico = () => {
 
         console.log("cadastrarGrafico");
+        console.table(grafico);
 
         const newGrafico = {
             grafico: grafico,
@@ -107,18 +97,12 @@ const FormPanelChart = () => {
             .then(data => {
                 setDadosGrafico(data.dadosGrafico);
 
-                console.log("resposta then " + data.dadosGrafico.label);
-                // console.log(dadosGrafico.label);
             })
             .catch(e => {
                 console.log("ERRO: " + e);
             });
 
-        // navigate("/formChart");
-
-        // console.log("---> " + dadosGrafico.label);
-        // console.log("---> " + dadosGrafico.valor);
-        // console.log("---> " + dadosGrafico.filtros);
+            setDadosGrafico(initialStateDadosGrafico);
     }
 
     // 
@@ -131,20 +115,8 @@ const FormPanelChart = () => {
     return (
         <section className={style.box}>
 
-            {/* Provisoriamente aqui, a ideia é colocar essa parte do form do nome da dashboard em uma janela modal  */}
-            <div>
-                <input type="text"
-                    id="nome"
-                    name="nome"
-                    placeholder="Nome dashboard"
-                    required
-                    value={dashboard.nome}
-                    onChange={handleInputChangeDadosDashboard}
-                />
-                <button type="submit" onClick={cadastrarNovaDashBoard}>
-                    Cadastrar nova Dashboard !!!!
-                </button>
-            </div>
+            {/* Modal cadastro da dashboard  */}
+            <ModalFormDashboard getDashboard={getDashboard} />
     
             <section className={style.areaFormChart}>
                 <div>

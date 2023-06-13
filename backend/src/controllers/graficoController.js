@@ -1,8 +1,11 @@
 const Grafico = require("../models/graficoModel.js");
 
 
-
 exports.create = (req, res, next) => {
+
+    console.log("graficoController");
+    console.table(req.body);
+    console.table(req.body.dadosGrafico);
 
     if(!req.body) {
         // console.log("ENtrou aqui? controler create teste" + req.body.nome)

@@ -36,6 +36,7 @@ const MenuProps = {
     },
 };
 
+
 const FormUploadDados = () => {
 
     const initialFilter = [];
@@ -53,21 +54,8 @@ const FormUploadDados = () => {
     const [valuesChart, setValuesChart] = useState([]);
     const [labelsChart, setLabelsChart] = useState([]);
     
-    // let fileData = "";
 
     let all = true;
-
-    // 
-    // useEffect(() => {
-    //     console.log("------> Useeffect FormUploadDados ---  ");
-
-    //     // if(allProducts.length === 0) {
-    //     //     return;
-    //     // }
-    //     getValorTotalByYear(fileData);
-
-        
-    // }, [filters]);
 
     
     // Método encarregado de ler o arquivo EXCEL e selecionar os labels para carregar no list form
@@ -119,7 +107,7 @@ const FormUploadDados = () => {
                     // console.log(grp);
 
                 console.log("groupbySet");
-                console.log(groupbySet);
+                console.table(groupbySet);
 
                 setFilters([...groupbySet[0]].sort((a, b) => a - b));
 
@@ -277,9 +265,6 @@ const FormUploadDados = () => {
     
     return (
         <div className={style.boxFormUploadDados}>
-            <header className={styleGlobal.header}>
-                <Bar />
-            </header>
             <div>
                 <section className={style.sectionFormUploadDados}>
                     <div>

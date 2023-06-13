@@ -47,7 +47,9 @@ Usuario.findByLoginSenha = (userLogin) => {
 
             console.log("ResultUsuario " + resultUsuario);
 
-            const data = resultUsuario;
+            const data = resultUsuario[0];
+
+            console.log("resultUsuario model " + data.login);
 
             // if(resultDadosAcesso[0] !== undefined) {
             //     const queryPessoaLogada = 'select * from pessoa where id_pessoa = ?';

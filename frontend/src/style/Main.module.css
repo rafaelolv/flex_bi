@@ -1,0 +1,8 @@
+.mainBox {
+    display: flex;
+    justify-content: center;
+    background-color: cornflowerblue;
+    border: 2px solid greenyellow;
+    width: 60%;
+    margin: 20%;
+}

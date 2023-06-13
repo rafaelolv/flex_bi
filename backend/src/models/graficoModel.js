@@ -28,7 +28,8 @@ Grafico.create = (newGrafico) => {
             data.dadosGrafico = {...dadosGrafico, id_grafico: data.grafico.id_grafico}
 
             const resultItensGrafico = await executeQuery(sql, queryCreateItensGrafico, data.dadosGrafico);  
-            data.dadosGrafico = {...dadosGrafico, id_itens_grafico: resultItensGrafico.insertId};
+
+            data.dadosGrafico = {...data.dadosGrafico, id_itens_grafico: resultItensGrafico.insertId};
 
             resolve(data);
 
@@ -36,6 +37,30 @@ Grafico.create = (newGrafico) => {
             reject(err);
         }
     });
+}
+
+// Retorna os graficos encontrados pelo id passado
+Grafico.findGraficosById = (id_dashboard) => {
+
+    console.log("findGraficosById????");
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const queryFindGraficos =
+            'select g.*, i.* from dashboard d' + 
+            ' inner join graficos g on g.id_dashboard = ?' +
+            ' inner join itens_grafico i on g.id_grafico = i.id_grafico';
+            const result = await executeQuery(sql, queryFindGraficos, id_dashboard);
+            const data = result[0];
+
+            console.log("data graficos  " + data);
+            console.table(data);
+
+            resolve(data);
+        } catch (err) {
+            reject(err);
+        }
+    })
 }
 
 // 

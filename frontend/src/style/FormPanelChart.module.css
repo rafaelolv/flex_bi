@@ -50,3 +50,16 @@
     height: 300px;
     border: 2px solid white;
 }
+
+.areaModalFormDashboard {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.areaModalFormDashboard button {
+    background-color: yellow;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 50px;
+}
